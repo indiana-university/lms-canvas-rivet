@@ -12,7 +12,7 @@ Add the following as a dependency in your pom.xml
 ```xml
 <dependency>
     <groupId>edu.iu.uits.lms</groupId>
-    <artifactId>lms-rivet</artifactId>
+    <artifactId>lms-canvas-rivet</artifactId>
     <version><!-- latest version --></version>
 </dependency>
 ```
