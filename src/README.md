@@ -1,0 +1,1 @@
+Bundles the Rivet artifacts into a "webjars" style resource for inclusion by other projects.

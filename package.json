@@ -1,0 +1,19 @@
+{
+  "name": "lms-rivet",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^9.0.1",
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0"
+  },
+  "dependencies": {
+    "rivet-clearable-input": "maurercw/rivet-clearable-input#v0.2.0",
+    "rivet-collapsible": "^0.2.13",
+    "rivet-icons": "^1.0.0",
+    "rivet-uits": "1.8.2"
+  }
+}

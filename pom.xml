@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>edu.iu.uits.lms</groupId>
+    <artifactId>lms-rivet</artifactId>
+    <packaging>jar</packaging>
+    <name>lms-rivet</name>
+    <version>5.1.8.2-SNAPSHOT</version>
+
+    <properties>
+        <frontend-maven-plugin.version>1.12.0</frontend-maven-plugin.version>
+        <java.version>11</java.version>
+        <jdk.source>11</jdk.source>
+        <jdk.target>11</jdk.target>
+        <nodejs.version>v14.17.6</nodejs.version>
+        <npm.version>6.14.15</npm.version>
+    </properties>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>${frontend-maven-plugin.version}</version>
+                <configuration>
+                    <nodeVersion>${nodejs.version}</nodeVersion>
+                    <npmVersion>${npm.version}</npmVersion>
+                    <installDirectory>${project.build.directory}/js</installDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>js-install-node-and-npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                    </execution>
+                    <execution>
+                        <id>js-process</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>js-package</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>webpack</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
