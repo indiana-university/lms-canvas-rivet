@@ -5,7 +5,7 @@
     <artifactId>lms-canvas-rivet</artifactId>
     <packaging>jar</packaging>
     <name>lms-canvas-rivet</name>
-    <version>5.1.8.2-SNAPSHOT</version>
+    <version>5.1.8.2</version>
     <inceptionYear>2015</inceptionYear>
 
     <organization>
@@ -52,7 +52,7 @@
         <connection>scm:git:https://github.com/indiana-university/lms-canvas-rivet.git</connection>
         <developerConnection>scm:git:https://github.com/indiana-university/lms-canvas-rivet.git</developerConnection>
         <url>https://github.com/indiana-university/lms-canvas-rivet</url>
-        <tag>HEAD</tag>
+        <tag>lms-canvas-rivet-5.1.8.2</tag>
     </scm>
 
     <properties>
