@@ -5,7 +5,7 @@
     <artifactId>lms-canvas-rivet</artifactId>
     <packaging>jar</packaging>
     <name>lms-canvas-rivet</name>
-    <version>5.1.8.2-SNAPSHOT</version>
+    <version>5.1.8.2_1-SNAPSHOT</version>
     <description>A webjars style bundle that contains rivet and rivet-related libraries that can be used in other projects</description>
     <url>https://github.com/indiana-university/lms-canvas-rivet</url>
     <inceptionYear>2015</inceptionYear>
