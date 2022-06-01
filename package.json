@@ -6,15 +6,15 @@
     "build": "webpack --mode production"
   },
   "devDependencies": {
-    "copy-webpack-plugin": "^9.0.1",
-    "webpack": "^5.52.1",
-    "webpack-cli": "^4.8.0"
+    "copy-webpack-plugin": "^9.1.0",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
   },
   "dependencies": {
     "rivet-clearable-input": "maurercw/rivet-clearable-input#v0.2.0",
     "rivet-collapsible": "^0.2.13",
-    "rivet-icons": "^1.0.0",
+    "rivet-icons": "^1.0.2",
     "rivet-switch": "^0.3.2",
-    "rivet-uits": "1.8.2"
+    "rivet-core": "2.0.0-beta.4"
   }
 }
