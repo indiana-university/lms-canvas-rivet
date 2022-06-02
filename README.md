@@ -1,10 +1,14 @@
 # LMS Canvas Rivet Web Bundle
 
 When this library is added to a project it allows access to a bundle of rivet UI components and add-ons:
-* rivet-bundle
-* rivet-clearable-input
-* rivet-collapsible
-* rivet-icons
+
+| Library               | Files                                                                                                          |
+|-----------------------|----------------------------------------------------------------------------------------------------------------|
+| rivet-core            | <ul><li>rivet.min.js</li><li>rivet-esm.js</li><li>rivet-iife.js</li><li>rivet.min.css</li></ul>                |
+| rivet-clearable-input | <ul><li>rivet-clearable-input.min.js</li><li>rivet-clearable-input.min.css</li></ul>                           |
+| rivet-collapsible     | <ul><li>rivet-collapsible.min.js</li><li>rivet-collapsible.min.css</li></ul>                                   |
+| rivet-icons           | <ul><li>rivet-icons.svg</li><li>rivet-icon-element.js</li><li>rivet-icons.css</li><li>rivet.icons.js</li></ul> |
+| rivet-switch          | <ul><li>rivet-switch.min.js</li><li>rivet-switch.min.css</li></ul>                                             |
 
 ## Installation
 ### From Maven
@@ -49,7 +53,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 ### Link to whatever css and js files you need
 ```html
-<link rel="stylesheet" type="text/css" href="/jsrivet/rivet-bundle.min.css" />
-<script type="text/javascript" src="/jsrivet/rivet-bundle.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/jsrivet/rivet.min.css" />
+<script type="text/javascript" src="/jsrivet/rivet.min.js"></script>
 
 ```
+
+## Upgrading from rivet-uits (1.x) to rivet-core (2.x)
+At the very least, the js/css artifacts are referenced slightly differently:
+
+| Old file             | New file      |
+|----------------------|---------------|
+| rivet-bundle.min.css | rivet.min.css |
+| rivet-bundle.min.js  | rivet.min.js  |
+
+Beyond that, consult the specific rivet docs to find out more.
