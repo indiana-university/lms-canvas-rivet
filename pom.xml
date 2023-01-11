@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.4</version>
+        <relativePath /> <!-- lookup parent from repository -->
+    </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.iu.uits.lms</groupId>
     <artifactId>lms-canvas-rivet</artifactId>
     <packaging>jar</packaging>
     <name>lms-canvas-rivet</name>
-    <version>5.2.2.1-SNAPSHOT</version>
+    <version>5.2.2.0_1-SNAPSHOT</version>
     <description>A webjars style bundle that contains rivet and rivet-related libraries that can be used in other projects</description>
     <url>https://github.com/indiana-university/lms-canvas-rivet</url>
     <inceptionYear>2015</inceptionYear>
@@ -73,13 +80,19 @@
         <plugins.source.version>3.0.1</plugins.source.version>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
     <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
             <resource>
-                <directory>src</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
+                <directory>src/main/resources</directory>
             </resource>
         </resources>
         <plugins>
