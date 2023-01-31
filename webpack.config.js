@@ -26,12 +26,8 @@ module.exports = {
         { from: paths.node + '/rivet-icons/dist/rivet-icon-element.js', to: paths.dest + '/rivet-icon-element.js' },
         { from: paths.node + '/rivet-icons/dist/rivet-icons.css', to: paths.dest + '/rivet-icons.css' },
         { from: paths.node + '/rivet-icons/dist/rivet-icons.js', to: paths.dest + '/rivet-icons.js' },
-        { from: paths.node + '/rivet-collapsible/dist/js/rivet-collapsible.min.js', to: paths.dest + '/rivet-collapsible.min.js' },
-        { from: paths.node + '/rivet-collapsible/dist/css/rivet-collapsible.min.css', to: paths.dest + '/rivet-collapsible.min.css' },
         { from: paths.node + '/rivet-clearable-input/dist/js/rivet-clearable-input.min.js', to: paths.dest + '/rivet-clearable-input.min.js' },
         { from: paths.node + '/rivet-clearable-input/dist/css/rivet-clearable-input.min.css', to: paths.dest + '/rivet-clearable-input.min.css' },
-        { from: paths.node + '/rivet-switch/dist/js/rivet-switch.min.js', to: paths.dest + '/rivet-switch.min.js' },
-        { from: paths.node + '/rivet-switch/dist/css/rivet-switch.min.css', to: paths.dest + '/rivet-switch.min.css' },
       ]
     }),
   ],
