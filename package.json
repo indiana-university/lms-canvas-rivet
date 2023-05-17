@@ -13,6 +13,6 @@
   "dependencies": {
     "rivet-clearable-input": "maurercw/rivet-clearable-input#v0.2.0",
     "rivet-icons": "^2.0.0",
-    "rivet-core": "2.3.1"
+    "rivet-core": "2.4.0"
   }
 }
