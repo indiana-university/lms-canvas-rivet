@@ -67,3 +67,9 @@ At the very least, the js/css artifacts are referenced slightly differently:
 | rivet-bundle.min.js  | rivet.min.js  |
 
 Beyond that, consult the specific rivet docs to find out more.
+
+## Release Upgrades
+For upgrading the rivet version in this service:
+
+package.json: Change the version of the "rivet-core" and check for the latest tag release for "rivet-icons" at https://github.com/indiana-university/rivet-icons
+pom.xml: Make sure the SNAPSHOT version matches the rivet-core version to be released
