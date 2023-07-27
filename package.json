@@ -6,13 +6,13 @@
     "build": "webpack --mode production"
   },
   "devDependencies": {
-    "copy-webpack-plugin": "^9.1.0",
-    "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2"
+    "copy-webpack-plugin": "^11.0.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
     "rivet-clearable-input": "maurercw/rivet-clearable-input#v0.2.0",
     "rivet-icons": "^2.0.0",
-    "rivet-core": "2.5.0"
+    "rivet-core": "2.5.1"
   }
 }
