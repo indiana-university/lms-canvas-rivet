@@ -42,7 +42,7 @@ jobs:
         run: |
           gpg --import --passphrase '${{ secrets.LMS_GPG_PASSPHRASE }}' --batch --yes ~/.gpg/lmsdev-maven-signing-key.asc
           gpg --import --passphrase '${{ secrets.LMS_GPG_PASSPHRASE }}' --batch --yes ~/.gpg/lmsdev-maven-secret-key.key
-      - name: Release prepare
-        run: mvn clean release:prepare -B
-      - name: Release perform
-        run: mvn release:perform -B
+      - name: Release prepare/perform
+        run: mvn clean release:prepare release:perform -B
+#      - name: Release perform
+#        run: mvn release:perform -B -DdryRun=true
