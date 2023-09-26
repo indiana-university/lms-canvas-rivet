@@ -1,0 +1,46 @@
+# Description
+# -----------
+# This workflow builds and releases the maven artifact
+#
+# Setup
+# -----
+# 1. Create the following secrets inside GitHub:
+#    - LMS_MAVEN_SETTINGS (Base64 encoded settings.xml file)
+#    - LMS_MAVEN_SECURITY (Base64 encoded settings-security.xml file)
+#    - LMS_GPG_PASSPHRASE (GPG passphrase)
+#    - LMS_GPG_SIGNING_KEY (Base64 encoded GPG signing key to be imported)
+#    - LMS_GPG_SECRET_KEY (Base64 encoded GPG secret key to be imported)
+#    - LMS_GIT_CONFIG (Base64 encoded .gitconfig file)
+
+name: Maven Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup git and other necessary files
+        run: |
+          mkdir ~/.gpg
+          mkdir ~/.m2
+          echo -n '${{ secrets.LMS_GIT_CONFIG }}' | base64 -d > ~/.gitconfig
+          echo -n '${{ secrets.LMS_MAVEN_SETTINGS }}' | base64 -d > ~/.m2/settings.xml
+          echo -n '${{ secrets.LMS_MAVEN_SECURITY }}' | base64 -d > ~/.m2/settings-security.xml
+          echo -n '${{ secrets.LMS_GPG_SIGNING_KEY }}' | base64 -d > ~/.gpg/lmsdev-maven-signing-key.asc
+          echo -n '${{ secrets.LMS_GPG_SECRET_KEY }}' | base64 -d > ~/.gpg/lmsdev-maven-secret-key.key
+      - uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+          overwrite-settings: false
+      - name: Import gpg keys
+        run: |
+          gpg --import --passphrase '${{ secrets.LMS_GPG_PASSPHRASE }}' --batch --yes ~/.gpg/lmsdev-maven-signing-key.asc
+          gpg --import --passphrase '${{ secrets.LMS_GPG_PASSPHRASE }}' --batch --yes ~/.gpg/lmsdev-maven-secret-key.key
+      - name: Release prepare/perform
+        run: mvn clean release:prepare release:perform -B
