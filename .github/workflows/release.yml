@@ -30,7 +30,7 @@ jobs:
           echo -n '${{ secrets.LMS_MAVEN_SECURITY }}' | base64 -d > ~/.m2/settings-security.xml
           echo -n '${{ secrets.LMS_GPG_SIGNING_KEY }}' | base64 -d > ~/.gpg/lmsdev-maven-signing-key.asc
           echo -n '${{ secrets.LMS_GPG_SECRET_KEY }}' | base64 -d > ~/.gpg/lmsdev-maven-secret-key.key
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
