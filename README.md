@@ -73,3 +73,24 @@ For upgrading the rivet version in this service:
 
 package.json: Change the version of the "rivet-core" and check for the latest tag release for "rivet-icons" at https://github.com/indiana-university/rivet-icons
 pom.xml: Make sure the SNAPSHOT version matches the rivet-core version to be released
+
+## Scroll to top component
+If you want to use the bundled scroll to top component in a tool, you will need the following css, js, and html markup
+in the tool to make it function. The html assumes the tool will have Rivet 2 and Rivet Icons. 
+
+```
+<link rel="stylesheet" type="text/css" th:href="@{/app/jsrivet/rivet.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/app/jsrivet/rivet-icons.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/app/jsrivet/scrolltotop/scrolltotop.css}"/>
+
+<!-- Scroll to top button -->
+<button id="scroll-to-top-button" class="rvt-button rvt-button--secondary" onclick="topFunction();" title="Back to top">
+    <span class="rvt-m-right-xxs">Back to Top</span>
+    <rvt-icon name="arrow-up"></rvt-icon>
+</button>
+
+<script type="text/javascript" th:src="@{/app/jsrivet/rivet.min.js}"></script>
+<script defer th:src="@{/app/jsrivet/rivet-icons.js}"></script>
+<script type="module" th:src="@{/app/jsrivet/rivet-icon-element.js}"></script>
+<script type="text/javascript" th:src="@{/app/jsrivet/scrolltotop/scrolltotop.js}"></script>
+```
