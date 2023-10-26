@@ -28,6 +28,7 @@ module.exports = {
         { from: paths.node + '/rivet-icons/dist/rivet-icons.js', to: paths.dest + '/rivet-icons.js' },
         { from: paths.node + '/rivet-clearable-input/dist/js/rivet-clearable-input.min.js', to: paths.dest + '/rivet-clearable-input.min.js' },
         { from: paths.node + '/rivet-clearable-input/dist/css/rivet-clearable-input.min.css', to: paths.dest + '/rivet-clearable-input.min.css' },
+        { from: './public/scrolltotop', to: paths.dest + '/scrolltotop' },
       ]
     }),
   ],
