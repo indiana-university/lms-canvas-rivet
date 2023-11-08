@@ -55,6 +55,12 @@ class ScrollToTop extends HTMLElement {
   buttonClick(e) {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+
+    // this assumes that a page has an h1 tag at the top!
+    var allTheH1s = document.getElementsByTagName("h1");
+    var focusableH1 = allTheH1s[0];
+    focusableH1.setAttribute('tabindex', -1);
+    focusableH1.focus();
   }
 
   windowScroll(e) {
