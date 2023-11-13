@@ -15,6 +15,10 @@ template.innerHTML = `
     z-index: 99; /* Make sure it does not overlap */
     cursor: pointer; /* Add a mouse pointer on hover */
   }
+
+  .rvt-button--secondary {
+    background-color: #fff !important; /* override rivet transparency */
+  }
 </style>
 <button id="scroll-to-top-button" class="rvt-button rvt-button--secondary" title="Back to top">
   <span class="rvt-m-right-xxs">Back to Top</span>
@@ -56,11 +60,13 @@ class ScrollToTop extends HTMLElement {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 
-    // this assumes that a page has an h1 tag at the top!
-    var allTheH1s = document.getElementsByTagName("h1");
-    var focusableH1 = allTheH1s[0];
-    focusableH1.setAttribute('tabindex', -1);
-    focusableH1.focus();
+    // focus on the id specified from the tool
+    if (this.hasAttribute('focusid')) {
+      var focusid = this.getAttribute('focusid');
+      var focusableElement = document.getElementById(focusid);
+      focusableElement.setAttribute('tabindex', -1);
+      focusableElement.focus();
+    }
   }
 
   windowScroll(e) {
