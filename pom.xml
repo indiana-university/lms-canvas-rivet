@@ -12,7 +12,7 @@
     <artifactId>lms-canvas-rivet</artifactId>
     <packaging>jar</packaging>
     <name>lms-canvas-rivet</name>
-    <version>5.2.6.1-SNAPSHOT</version>
+    <version>5.2.7.0-SNAPSHOT</version>
     <description>A webjars style bundle that contains rivet and rivet-related libraries that can be used in other projects</description>
     <url>https://github.com/indiana-university/lms-canvas-rivet</url>
     <inceptionYear>2015</inceptionYear>
@@ -65,19 +65,19 @@
     </scm>
 
     <properties>
-        <frontend-maven-plugin.version>1.13.4</frontend-maven-plugin.version>
+        <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
         <java.version>17</java.version>
         <jdk.source>17</jdk.source>
         <jdk.target>17</jdk.target>
         <nodejs.version>v14.21.2</nodejs.version>
         <npm.version>6.14.17</npm.version>
-        <plugins.compiler.version>3.11.0</plugins.compiler.version>
-        <plugins.gpg.version>3.1.0</plugins.gpg.version>
-        <plugins.javadoc.version>3.5.0</plugins.javadoc.version>
-        <plugins.license.version>2.2.0</plugins.license.version>
+        <plugins.compiler.version>3.13.0</plugins.compiler.version>
+        <plugins.gpg.version>3.2.4</plugins.gpg.version>
+        <plugins.javadoc.version>3.6.3</plugins.javadoc.version>
+        <plugins.license.version>2.4.0</plugins.license.version>
         <plugins.nexus-staging.version>1.6.13</plugins.nexus-staging.version>
         <plugins.release.version>3.0.1</plugins.release.version>
-        <plugins.source.version>3.3.0</plugins.source.version>
+        <plugins.source.version>3.3.1</plugins.source.version>
     </properties>
 
     <dependencies>
