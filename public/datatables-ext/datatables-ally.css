@@ -1,0 +1,11 @@
+
+/*
+ * For accessibility reasons, we change an element in the table header to a button, but we don't want it styled like a button
+ */
+th.sorting button {
+    border: none;
+    background: transparent;
+    width: 100%;
+    padding: 4px;
+    margin: 1px;
+}
