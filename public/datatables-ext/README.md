@@ -1,4 +1,4 @@
-# Dataables extensions
+# Datatables extensions
 
 ## How to use
 
@@ -25,9 +25,9 @@ Global config options:
 
 Column Definition options:
 
-| Setting                   | Default Value | Description               |
-|---------------------------|---------------|---------------------------|
-| `defaultValue` (optional) |  | Filter's initial value    |
+| Setting                   | Default Value | Description                          |
+|---------------------------|---------------|--------------------------------------|
+| `defaultValue` (optional) |  | Filter's initial value (single value) |
 
 If you don't need to set a default (preselected) value, then simply having `lmsFilters: true` is sufficient to enable a filter for the column.
 
