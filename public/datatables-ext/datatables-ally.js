@@ -22,12 +22,14 @@ function fixTableHeaders(datatablesSettings) {
             let currentSort = header.attr("aria-sort");
             let direction = currentSort != null && currentSort == 'ascending' ? "descending" : "ascending";
 
-            let headerButtonWrapper = `<button type="button" aria-description="Activate to sort by ${sortBy} ${direction}">${sortBy}</button>`;
+            let description=`Activate to sort by ${sortBy} ${direction}`;
 
             // We are replacing the wonky th that currently uses tabindex and role=button with an actual button. Remove the tabindex and role
             let headerSpan = $(header.find("span.dt-column-title")[0]);
             headerSpan.removeAttr("role");
-            headerSpan.html(headerButtonWrapper);
+
+            let sortButton = headerSpan.find("button")[0];
+            $(sortButton).attr("aria-description", description);
 
             // DT uses an event handler on the th instead of a button, so we have to manually handle the sorting events to trigger the SR message
             header.on( "keypress", function(event) {
