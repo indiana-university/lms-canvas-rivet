@@ -91,6 +91,12 @@ function applyAccessibilityOverrides(options) {
     labelCheckboxes(options);
 }
 
+// In FF, pressing enter on a checkbox will submit the form. We need to prevent the enter key
+// from submitting on checkboxes. Keyboard users will use spacebar to check a checkbox.
+$(document).on("keypress", ":input:checkbox", function(event) {
+  return event.key != 'Enter';
+});
+
 /**
  * Add a listener for datatables preInit
  **/
