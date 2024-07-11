@@ -73,7 +73,8 @@ DataTable.feature.register('lmsFilters', function (datatablesSettings, opts) {
  **/
 function buildLmsFilter(datatablesSettings, options) {
     let column = datatablesSettings.api.columns(options.colIndex);
-    let filterOptions = column.data().eq(0).unique().sort();
+    // Special sort function so that it's case-insensitive
+    let filterOptions = column.data().eq(0).unique().sort((a,b) => a.localeCompare(b));
     let filterId = options.filterId;
     let filterName = options.filterName;
     let colIdx = options.colIndex;
@@ -95,7 +96,7 @@ function buildLmsFilter(datatablesSettings, options) {
         optionsHtml +=
             `<li>
                 <div class="rvt-checkbox">
-                    <input type="checkbox" id="${key}" name="${filterId}-checkboxes" class="filter-input" value="${escapedItem}" ${isChecked} data-text="${escapedItem}" onchange="filterCheckboxChange(this, ${colIdx}, '${filterId}', '${tableId}')"/>
+                    <input type="checkbox" id="${key}" name="${filterId}-checkboxes" class="filter-input prevent-submit" value="${escapedItem}" ${isChecked} data-text="${escapedItem}" onchange="filterCheckboxChange(this, ${colIdx}, '${filterId}', '${tableId}')"/>
                     <label for="${key}" class="rvt-m-right-sm rvt-text-nobr">${item}</label>
                 </div>
             </li>`;
@@ -104,9 +105,11 @@ function buildLmsFilter(datatablesSettings, options) {
     let container =
         `<div class="rvt-dropdown rvt-p-top-xs rvt-m-right-sm-md-up" role="region" aria-label="Controls for filtering users by ${filterName}" data-rvt-dropdown="${filterId}-dropdown-filter">
               <div id="${filterId}-selected-text" class="rvt-sr-only" aria-live="polite"></div>
-              <button id="${filterId}-button" type="button" class="rvt-button rvt-button--secondary transparencyOverride" data-rvt-dropdown-toggle="${filterId}-filter-options">
-                  <span class="rvt-dropdown__toggle-text">Filter By ${filterName} <span id="${filterId}-filters-active"></span></span>
+              <button id="${filterId}-button" type="button" class="rvt-button rvt-button--secondary transparencyOverride"
+                    data-rvt-dropdown-toggle="${filterId}-filter-options" aria-describedby="${filterId}-sr-filters-active">
+                  <span class="rvt-dropdown__toggle-text">Filter By ${filterName} <span aria-hidden="true" id="${filterId}-filters-active"></span></span>
                   <svg aria-hidden="true" fill="currentColor" width="16" height="16" viewBox="0 0 16 16"><path d="m15.146 6.263-1.292-1.526L8 9.69 2.146 4.737.854 6.263 8 12.31l7.146-6.047Z"></path></svg>
+                  <span hidden id="${filterId}-sr-filters-active"></span>
               </button>
               <div id="${filterId}-dropdown" class="rvt-dropdown__menu" data-rvt-dropdown-menu="${filterId}-filter-options" hidden>
                   <button id="${filterId}-remove-filters" type="button" aria-describedby="${filterId}-filter-count" class="rvt-button rvt-button--secondary" onclick="clearFilter('${filterId}-checkboxes', ${colIdx}, '${filterId}', '${tableId}')">Remove ${filterName} Filters</button>
@@ -200,11 +203,13 @@ function computeAndDisplayActiveFilters(filterIdPrefix, tableInstance) {
     let checkedFilters = $('input[type="checkbox"][name="' + filterIdPrefix + '-checkboxes"].filter-input:checked');
     let numberOfChecked = checkedFilters.length
     let newContent = ""
+    let newSrContent = ""
     let filterCountText = "No filters currently selected"
     let filterInfoText = "No filters selected"
 
     if (numberOfChecked !== 0) {
         newContent = "(" + numberOfChecked + ")"
+        newSrContent = numberOfChecked + " selected"
 
         let filterValues = [];
         checkedFilters.each(function( c ) {
@@ -221,6 +226,7 @@ function computeAndDisplayActiveFilters(filterIdPrefix, tableInstance) {
 
     //${filterId}-filters-active
     $("#" + filterIdPrefix + "-filters-active").html(newContent)
+    $("#" + filterIdPrefix + "-sr-filters-active").html(newSrContent)
 
     //${filterId}-filter-count
     $("#" + filterIdPrefix + "-filter-count").html(filterCountText)
