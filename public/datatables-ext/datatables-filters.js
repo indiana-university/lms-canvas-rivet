@@ -96,7 +96,7 @@ function buildLmsFilter(datatablesSettings, options) {
         optionsHtml +=
             `<li>
                 <div class="rvt-checkbox">
-                    <input type="checkbox" id="${key}" name="${filterId}-checkboxes" class="filter-input" value="${escapedItem}" ${isChecked} data-text="${escapedItem}" onchange="filterCheckboxChange(this, ${colIdx}, '${filterId}', '${tableId}')"/>
+                    <input type="checkbox" id="${key}" name="${filterId}-checkboxes" class="filter-input prevent-submit" value="${escapedItem}" ${isChecked} data-text="${escapedItem}" onchange="filterCheckboxChange(this, ${colIdx}, '${filterId}', '${tableId}')"/>
                     <label for="${key}" class="rvt-m-right-sm rvt-text-nobr">${item}</label>
                 </div>
             </li>`;
