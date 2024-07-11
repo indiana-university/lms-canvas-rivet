@@ -73,7 +73,8 @@ DataTable.feature.register('lmsFilters', function (datatablesSettings, opts) {
  **/
 function buildLmsFilter(datatablesSettings, options) {
     let column = datatablesSettings.api.columns(options.colIndex);
-    let filterOptions = column.data().eq(0).unique().sort();
+    // Special sort function so that it's case-insensitive
+    let filterOptions = column.data().eq(0).unique().sort((a,b) => a.localeCompare(b));
     let filterId = options.filterId;
     let filterName = options.filterName;
     let colIdx = options.colIndex;
