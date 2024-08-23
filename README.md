@@ -2,13 +2,14 @@
 
 When this library is added to a project it allows access to a bundle of rivet UI components and add-ons:
 
-| Library               | Files                                                                                                          |
-|-----------------------|----------------------------------------------------------------------------------------------------------------|
-| rivet-core            | <ul><li>rivet.min.js</li><li>rivet-esm.js</li><li>rivet-iife.js</li><li>rivet.min.css</li></ul>                |
-| rivet-clearable-input | <ul><li>rivet-clearable-input.min.js</li><li>rivet-clearable-input.min.css</li></ul>                           |
-| rivet-collapsible     | <ul><li>rivet-collapsible.min.js</li><li>rivet-collapsible.min.css</li></ul>                                   |
-| rivet-icons           | <ul><li>rivet-icons.svg</li><li>rivet-icon-element.js</li><li>rivet-icons.css</li><li>rivet.icons.js</li></ul> |
-| rivet-switch          | <ul><li>rivet-switch.min.js</li><li>rivet-switch.min.css</li></ul>                                             |
+| Library               | Directory             | Files                                                                                                                                                          |
+|-----------------------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Datatables Extensions | datatables-ext        | <ul><li>datatables-ally.css</li><li>datatables-ally.js</li><li>datatables-filters.js</li></ul>                                                                 |
+| rivet-clearable-input | rivet-clearable-input | <ul><li>rivet-clearable-input.min.js</li><li>rivet-clearable-input.min.css</li></ul>                                                                           |
+| rivet-core            | rivet-core            | <ul><li>rivet.css</li><li>rivet.min.css</li><li>rivet.min.js</li><li>rivet-esm.js</li><li>rivet-iife.js</li><li>rivet-umd.js</li></ul>                         |
+| rivet-icons           | rivet-icons           | <ul><li>rivet-icon-element.css</li><li>rivet-icon-element.js</li><li>rivet-icons.js</li><li>rivet-icons.json</li><li>`<icon-name>`.js</li></ul>                |
+| rivet-stickers        | rivet-stickers        | <ul><li>rivet-sticker-element.css</li><li>rivet-sticker-element.js</li><li>rivet-stickers.js</li><li>rivet-stickers.json</li><li>`<sticker-name>`.js</li></ul> |
+| scrolltotop           | scrolltotop           | <ul><li>scrolltotop.js</li></ul>                                                                                                                               |
 
 ## Installation
 ### From Maven
@@ -68,6 +69,11 @@ At the very least, the js/css artifacts are referenced slightly differently:
 
 Beyond that, consult the specific rivet docs to find out more.
 
+## Upgrading to 5.2.8.0
+With the introduction of the new `rivet-stickers` (0.3.0) and changes to `rivet-icons` (3.0.0), we decided to add 
+directories for organizational purposes.  Now, each component will be inside their own directory.  The table at the top 
+of this README should mention those specific details.
+
 ## Release Upgrades
 For upgrading the rivet version in this service:
 
@@ -94,3 +100,6 @@ in the tool to make it function. The html assumes the tool will have Rivet 2 and
 <script type="module" th:src="@{/app/jsrivet/rivet-icon-element.js}"></script>
 <script type="text/javascript" th:src="@{/app/jsrivet/scrolltotop/scrolltotop.js}"></script>
 ```
+
+## Datatables Extensions
+See the [README.md](public/datatables-ext/README.md) in the source for details.

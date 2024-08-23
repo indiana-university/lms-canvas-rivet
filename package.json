@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "rivet-clearable-input": "maurercw/rivet-clearable-input#v0.4.0",
-    "rivet-icons": "^2.0.0",
-    "rivet-core": "2.7.0"
+    "rivet-icons": "3.0.0",
+    "rivet-core": "2.8.0",
+    "rivet-stickers": "0.3.0"
   }
 }

@@ -62,8 +62,8 @@ function sortingNotify(sortHeader) {
  * Make the row selection checkboxes more accessible
  * options - Config options map
  **/
-function labelCheckboxes(options) {
-    $("th.rowCheckbox").each( function() {
+function labelCheckboxes(options, tableId) {
+    $(`#${tableId} th.rowCheckbox`).each( function() {
         // need to add a label pointing to a suitable location
         let targetLabel = $(this).closest('tr').find(`${options.checkLabelTargetSelector}`)[0];
         let inputCheckbox = $(this).find('input[type=checkbox]')[0];
@@ -107,7 +107,7 @@ $(document).on('preInit.dt', function(e, settings) {
         // after the table is drawn (on init, sort, search, etc) we need to apply the table header accessibility fixes again
         fixTableHeaders(settings);
         // add meaningful labels to the checkboxes
-        labelCheckboxes(options);
+        labelCheckboxes(options, tableId);
     });
 });
 
