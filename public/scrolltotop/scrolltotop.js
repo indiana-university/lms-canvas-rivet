@@ -1,5 +1,5 @@
 // Default rivet path
-const defaultRivetPath = "/app/jsrivet";
+const defaultRivetPath = "/app/jsrivet/rivet-core";
 const placeholderPath = "/RIVET_PATH_PLACEHOLDER";
 
 // Create template
