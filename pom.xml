@@ -12,7 +12,7 @@
     <artifactId>lms-canvas-rivet</artifactId>
     <packaging>jar</packaging>
     <name>lms-canvas-rivet</name>
-    <version>6.2.8.1_1</version>
+    <version>6.2.8.1_2-SNAPSHOT</version>
     <description>A webjars style bundle that contains rivet and rivet-related libraries that can be used in other projects</description>
     <url>https://github.com/indiana-university/lms-canvas-rivet</url>
     <inceptionYear>2015</inceptionYear>
@@ -61,7 +61,7 @@
         <connection>scm:git:https://github.com/indiana-university/lms-canvas-rivet.git</connection>
         <developerConnection>scm:git:https://github.com/indiana-university/lms-canvas-rivet.git</developerConnection>
         <url>https://github.com/indiana-university/lms-canvas-rivet</url>
-        <tag>lms-canvas-rivet-6.2.8.1_1</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
