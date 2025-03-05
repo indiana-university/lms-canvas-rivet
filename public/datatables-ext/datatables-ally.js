@@ -63,7 +63,7 @@ function sortingNotify(sortHeader) {
  * options - Config options map
  **/
 function labelCheckboxes(options, tableId) {
-    $(`#${tableId} th.rowCheckbox`).each( function() {
+    $(`#${tableId} .rowCheckbox`).each( function() {
         // need to add a label pointing to a suitable location
         let targetLabel = $(this).closest('tr').find(`${options.checkLabelTargetSelector}`)[0];
         let inputCheckbox = $(this).find('input[type=checkbox]')[0];
