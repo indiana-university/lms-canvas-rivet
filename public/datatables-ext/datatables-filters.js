@@ -103,7 +103,7 @@ function buildLmsFilter(datatablesSettings, options) {
     });
 
     let container =
-        `<div class="rvt-dropdown rvt-p-top-xs rvt-m-right-sm-md-up" role="region" aria-label="Controls for filtering users by ${filterName}" data-rvt-dropdown="${filterId}-dropdown-filter">
+        `<div class="rvt-dropdown rvt-p-top-xs rvt-m-right-sm-md-up" role="region" aria-label="Controls for filtering by ${filterName}" data-rvt-dropdown="${filterId}-dropdown-filter">
               <div id="${filterId}-selected-text" class="rvt-sr-only" aria-live="polite"></div>
               <button id="${filterId}-button" type="button" class="rvt-button rvt-button--secondary transparencyOverride"
                     data-rvt-dropdown-toggle="${filterId}-filter-options" aria-describedby="${filterId}-sr-filters-active">
