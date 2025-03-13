@@ -103,7 +103,7 @@ function buildLmsFilter(datatablesSettings, options) {
     });
 
     let container =
-        `<div class="rvt-dropdown rvt-p-top-xs rvt-m-right-sm-md-up" role="region" aria-label="Controls for filtering users by ${filterName}" data-rvt-dropdown="${filterId}-dropdown-filter">
+        `<div class="rvt-dropdown rvt-p-top-xs rvt-m-right-sm-md-up" role="region" aria-label="Controls for filtering by ${filterName}" data-rvt-dropdown="${filterId}-dropdown-filter">
               <div id="${filterId}-selected-text" class="rvt-sr-only" aria-live="polite"></div>
               <button id="${filterId}-button" type="button" class="rvt-button rvt-button--secondary transparencyOverride"
                     data-rvt-dropdown-toggle="${filterId}-filter-options" aria-describedby="${filterId}-sr-filters-active">
@@ -203,7 +203,9 @@ function computeAndDisplayActiveFilters(filterIdPrefix, tableInstance) {
     let checkedFilters = $('input[type="checkbox"][name="' + filterIdPrefix + '-checkboxes"].filter-input:checked');
     let numberOfChecked = checkedFilters.length
     let newContent = ""
-    let newSrContent = ""
+    // VoiceOver has issues with dynamic text descriptions. The old text is still read after the message is cleared.
+    // When this is a space instead of an empty string, VoiceOver seems to clear out the old text
+    let newSrContent = " "
     let filterCountText = "No filters currently selected"
     let filterInfoText = "No filters selected"
 
