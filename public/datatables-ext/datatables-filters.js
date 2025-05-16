@@ -11,7 +11,7 @@ DataTable.feature.register('lmsFilters', function (datatablesSettings, opts) {
         containerClass: 'undefined',
 
         // This is an array of strings.
-        // Filter names are the string after "filter-"  but before -dropdown-filter in the
+        // Filter names are the string after "filter-"  but before "-dropdown-filter" in the
         // data-rvt-dropdown attribute of the div tag.
         // For instance, filter-date-dropdown-filter would be a filter name of 'date' so the value
         // should be ['date']
