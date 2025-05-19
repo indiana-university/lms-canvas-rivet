@@ -9,12 +9,6 @@ DataTable.feature.register('lmsFilters', function (datatablesSettings, opts) {
     let options = Object.assign({
         includeClearFilters: false,
         containerClass: 'undefined',
-
-        // This is an array of strings.
-        // Filter names are the string after "filter-"  but before "-dropdown-filter" in the
-        // data-rvt-dropdown attribute of the div tag.
-        // For instance, filter-date-dropdown-filter would be a filter name of 'date' so the value
-        // should be ['date']
         descSortOrderFilterNames: []
    }, opts);
 

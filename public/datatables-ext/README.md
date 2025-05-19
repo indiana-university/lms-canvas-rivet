@@ -18,10 +18,11 @@ The main piece is including it in a layout, along with any of the global configu
 
 Global config options:
 
-| Setting                          | Default Value | Description                                                          |
-|----------------------------------|---------------|----------------------------------------------------------------------|
-| `includeClearFilters` (optional) | `false` | Boolean indicating of a "Clear Filters" button should be included  |
-| `containerClass` (optional)      |  | CSS class(es) to be added to the wrapper around all filter buttons |
+| Setting                               | Default Value | Description                                                                                                                                                                                                                                                                                                                                  |
+|---------------------------------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `includeClearFilters` (optional)      | `false`       | Boolean indicating of a "Clear Filters" button should be included                                                                                                                                                                                                                                                                            |
+| `containerClass` (optional)           |               | CSS class(es) to be added to the wrapper around all filter buttons                                                                                                                                                                                                                                                                           |
+| `descSortOrderFilterNames` (optional) | []            | This is an array of strings that define which filter dropdowns should be sorted in decending order. Filter names are the string after "filter-"  but before "-dropdown-filter" in the data-rvt-dropdown attribute of the div tag. For instance, filter-date-dropdown-filter would be a filter name of 'date' so the value should be ['date'] |
 
 Column Definition options:
 
