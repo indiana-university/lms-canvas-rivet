@@ -58,6 +58,7 @@
         <jdk.target>21</jdk.target>
         <nodejs.version>v22.15.0</nodejs.version>
         <npm.version>10.9.2</npm.version>
+        <plugins.central-publishing.version>0.7.0</plugins.central-publishing.version>
         <plugins.compiler.version>3.14.0</plugins.compiler.version>
         <plugins.gpg.version>3.2.7</plugins.gpg.version>
         <plugins.javadoc.version>3.11.2</plugins.javadoc.version>
