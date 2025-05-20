@@ -44,19 +44,6 @@
         </license>
     </licenses>
 
-    <distributionManagement>
-        <repository>
-            <name>Sonatype OSS Repository</name>
-            <id>Sonatype-OSS</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        </repository>
-        <snapshotRepository>
-            <name>Sonatype OSS Snapshot Repository</name>
-            <id>Sonatype-OSS</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <scm>
         <connection>scm:git:https://github.com/indiana-university/lms-canvas-rivet.git</connection>
         <developerConnection>scm:git:https://github.com/indiana-university/lms-canvas-rivet.git</developerConnection>
@@ -75,7 +62,6 @@
         <plugins.gpg.version>3.2.7</plugins.gpg.version>
         <plugins.javadoc.version>3.11.2</plugins.javadoc.version>
         <plugins.license.version>2.5.0</plugins.license.version>
-        <plugins.nexus-staging.version>1.7.0</plugins.nexus-staging.version>
         <plugins.release.version>3.1.1</plugins.release.version>
         <plugins.source.version>3.3.1</plugins.source.version>
     </properties>
@@ -152,14 +138,13 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>${plugins.nexus-staging.version}</version>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>${plugins.central-publishing.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <serverId>Sonatype-OSS</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
                 </configuration>
             </plugin>
             <plugin>
