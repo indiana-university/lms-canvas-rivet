@@ -8,8 +8,9 @@ DataTable.feature.register('lmsFilters', function (datatablesSettings, opts) {
     // Define defaults for the component
     let options = Object.assign({
         includeClearFilters: false,
-        containerClass: 'undefined'
-    }, opts);
+        containerClass: 'undefined',
+        descSortOrderFilterNames: []
+   }, opts);
 
     let tableId = datatablesSettings.sTableId;
 
@@ -21,6 +22,9 @@ DataTable.feature.register('lmsFilters', function (datatablesSettings, opts) {
 
     // Array to track individual filters so we can find them to reset later
     let filterIds = []
+
+    // Make sure the filter names are all lowercase for easier matching later
+    options.descSortOrderFilterNames = options.descSortOrderFilterNames.map(field => field.toLowerCase());
 
     // Loop through all the column definitions, looking for any with the filtering enabled
     datatablesSettings.aoColumns.forEach(function(colDef) {
@@ -36,8 +40,10 @@ DataTable.feature.register('lmsFilters', function (datatablesSettings, opts) {
             let params = Object.assign(colDef.lmsFilters,
                 { colIndex: colDef.idx, filterName: filterName, filterId: filterId, tableId: tableId, delimiter: colDef.delimiter });
 
+            let sortDropdownOrder = options.descSortOrderFilterNames.includes(filterName.toLowerCase()) ? 'desc' : 'asc';
+
             // Add the filter to the container div
-            let filter = buildLmsFilter(datatablesSettings, params);
+            let filter = buildLmsFilter(datatablesSettings, params, sortDropdownOrder);
             container.append(filter);
         }
     });
@@ -70,22 +76,29 @@ DataTable.feature.register('lmsFilters', function (datatablesSettings, opts) {
  * Build a filter
  * datatablesSettings - Settings coming from datatables
  * options - Options used to create this instance of the filter
+ * sortDropdownOrder - either 'asc' (ascending) or 'desc' (descending)
  **/
-function buildLmsFilter(datatablesSettings, options) {
+function buildLmsFilter(datatablesSettings, options, sortDropdownOrder) {
     let column = datatablesSettings.api.columns(options.colIndex);
-    let delimiter = options.delimiter;
-
-    let columnData = column.data().eq(0).unique();
-    let filterOptions = splitDelimitedData(columnData, delimiter);
-
-    // Special sort function so that it's case-insensitive
-    filterOptions = filterOptions.sort((a,b) => a.localeCompare(b));
 
     let filterId = options.filterId;
     let filterName = options.filterName;
     let colIdx = options.colIndex;
     let tableId = options.tableId;
     let defaultValue = options.defaultValue;
+
+    let delimiter = options.delimiter;
+
+    let columnData = column.data().eq(0).unique();
+    let filterOptions = splitDelimitedData(columnData, delimiter);
+
+    if (sortDropdownOrder === 'desc') {
+        // Special sort function so that it's case-insensitive
+        filterOptions = filterOptions.sort((a,b) => b.localeCompare(a));
+    } else {
+        // Special sort function so that it's case-insensitive
+        filterOptions = filterOptions.sort((a,b) => a.localeCompare(b));
+    }
 
     let optionsHtml = '';
 
