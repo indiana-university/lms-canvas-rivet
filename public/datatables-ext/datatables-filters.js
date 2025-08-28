@@ -38,7 +38,7 @@ DataTable.feature.register('lmsFilters', function (datatablesSettings, opts) {
 
             // Merge some custom values with any options defined in the column definition
             let params = Object.assign(colDef.lmsFilters,
-                { colIndex: colDef.idx, filterName: filterName, filterId: filterId, tableId: tableId });
+                { colIndex: colDef.idx, filterName: filterName, filterId: filterId, tableId: tableId, delimiter: colDef.delimiter });
 
             let sortDropdownOrder = options.descSortOrderFilterNames.includes(filterName.toLowerCase()) ? 'desc' : 'asc';
 
@@ -87,20 +87,23 @@ function buildLmsFilter(datatablesSettings, options, sortDropdownOrder) {
     let tableId = options.tableId;
     let defaultValue = options.defaultValue;
 
-    let filterOptions;
+    let delimiter = options.delimiter;
+
+    let columnData = column.data().eq(0).unique();
+    let filterOptions = splitDelimitedData(columnData, delimiter);
 
     if (sortDropdownOrder === 'desc') {
         // Special sort function so that it's case-insensitive
-        filterOptions = column.data().eq(0).unique().sort((a,b) => b.localeCompare(a));
+        filterOptions = filterOptions.sort((a,b) => b.localeCompare(a));
     } else {
         // Special sort function so that it's case-insensitive
-        filterOptions = column.data().eq(0).unique().sort((a,b) => a.localeCompare(b));
+        filterOptions = filterOptions.sort((a,b) => a.localeCompare(b));
     }
 
     let optionsHtml = '';
 
     // Build the selectable option for each filter item
-    filterOptions.each(function(item) {
+    filterOptions.forEach(item => {
         let itemId = item.replace(/\W/g,'_').toLowerCase();
         let key = filterId + "-" + itemId;
         let escapedItem = DataTable.util.escapeHtml(item);
@@ -109,10 +112,13 @@ function buildLmsFilter(datatablesSettings, options, sortDropdownOrder) {
             isChecked = 'checked'
         }
 
+        // If we split on a delimiter, we can't use an exact match on the column data
+        let exactMatch = delimiter ? false : true;
+
         optionsHtml +=
             `<li>
                 <div class="rvt-checkbox">
-                    <input type="checkbox" id="${key}" name="${filterId}-checkboxes" class="filter-input prevent-submit" value="${escapedItem}" ${isChecked} data-text="${escapedItem}" onchange="filterCheckboxChange(this, ${colIdx}, '${filterId}', '${tableId}')"/>
+                    <input type="checkbox" id="${key}" name="${filterId}-checkboxes" class="filter-input prevent-submit" value="${escapedItem}" ${isChecked} data-text="${escapedItem}" onchange="filterCheckboxChange(this, ${colIdx}, '${filterId}', '${tableId}', ${exactMatch})"/>
                     <label for="${key}" class="rvt-m-right-sm rvt-text-nobr">${item}</label>
                 </div>
             </li>`;
@@ -143,6 +149,34 @@ function buildLmsFilter(datatablesSettings, options, sortDropdownOrder) {
 
     return container;
 }
+
+// Function to split delimited data. Returns array of unique data
+function splitDelimitedData(columnData, delimiter) {
+    const mySet = new Set();  // use a set to remove duplicates
+    columnData.each(function(item) {
+        if(delimiter) {
+            // Split the item by the delimiter and add it to the set
+            let splitItem = item.split(delimiter);
+            splitItem.forEach(function(subItem) {
+                // Remove line breaks
+                subItem.replace("\n", "");
+                // Remove any leading/trailing whitespace
+                subItem = subItem.trim();
+                // Check if the item is not empty (this will happen if there is a trailing delimiter)
+                if (subItem.length > 0) {
+                    // Add the item to the set
+                    mySet.add(subItem);
+                }
+            });
+        } else {
+            // No delimiter, just add the item
+            mySet.add(item);
+        }
+    });
+
+    return Array.from(mySet);
+}
+
 
 /**
  * Clear the specified filter's selected values
@@ -186,15 +220,20 @@ function clearAllFilters(encodedData, tableId) {
  * filterIdPrefix - Prefix used in all the filter related controls
  * tableId - ID for the table element
  **/
-function filterCheckboxChange(element, colIdx, filterIdPrefix, tableId) {
+function filterCheckboxChange(element, colIdx, filterIdPrefix, tableId, exactMatch) {
     let values = [];
     // Get all checked values
     $('input[type="checkbox"][name="' + element.name + '"].filter-input:checked').each(function() {
         values.push(DataTable.util.escapeRegex(htmlDecode($(this).val())));
     });
 
-    // Escape things, and use exact match (wrapped with ^ and $)
-    let regExpStr = values.map(function(val) { return "^" + val + "$" }).join("|");
+    let regExpStr;
+    if (exactMatch) {
+        // Escape things, and use exact match (wrapped with ^ and $)
+        regExpStr = values.map(function(val) { return "^" + val + "$" }).join("|");
+    } else {
+        regExpStr = values.map(function(val) { return val }).join("|");
+    }
 
     // Search for all selected values in the appropriate column
     let tableInstance = lookupTableInstance(tableId);

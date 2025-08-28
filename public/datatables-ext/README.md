@@ -26,15 +26,20 @@ Global config options:
 
 Column Definition options:
 
-| Setting                   | Default Value | Description                          |
-|---------------------------|---------------|--------------------------------------|
-| `defaultValue` (optional) |  | Filter's initial value (single value) |
+| Setting                   | Default Value | Description                                                    |
+|---------------------------|---------------|----------------------------------------------------------------|
+| `defaultValue` (optional) |               | Filter's initial value (single value)                          |
+| `delimiter` (optional)    |               | Delimiter used for a list of values that you want to filter on |
 
 If you don't need to set a default (preselected) value, then simply having `lmsFilters: true` is sufficient to enable a filter for the column.
 
 Not specific to this feature, for the target columns, a 0 based index is common, but I like using a css class selector, 
 as it makes it more obvious which column is being configured!  Just have to make sure to add that class over on the `th` in the markup.
 
+If you have a scenario where you want to filter on multiple values in a column, you can do that by specifying a delimiter.
+For example, if you have a column that contains multiple roles (e.g. "Instructor, TA"), you can set the delimiter to ", " (comma space).
+Then if you select "Instructor" from the filter dropdown, it will match any row that contains "Instructor" in that column, even if there are other roles listed as well.
+Using <br> is a useful delimiter if the column data is visible, as it will display as a column with line breaks.
 ```
 $('#appTable').DataTable({
     ...
@@ -61,6 +66,10 @@ $('#appTable').DataTable({
                 defaultValue: 'false'
             }
         },
+        {
+            targets: ['.colRoles'],
+            delimiter: '<br>'
+        }
     ],
     layout: {
         top1Start: {
