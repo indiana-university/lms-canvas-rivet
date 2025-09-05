@@ -99,7 +99,6 @@ function applyAccessibilityOverrides(settings) {
     fixTableHeaders(settings);
     // add meaningful labels to the checkboxes
     labelCheckboxes(options, tableId);
-
 }
 
 // In FF, pressing enter on a checkbox will submit the form. We need to prevent the enter key
@@ -109,14 +108,3 @@ $(document).on("keypress", ":input.prevent-submit:checkbox", function(event) {
   return event.key != 'Enter';
 });
 
-/**
- * Add a listener for datatables preInit
- **/
-$(document).on('preInit.dt', function(e, settings) {
-    let options = settings.oInit.lmsAlly;
-    let tableId = settings.sTableId;
-    $(`#${tableId}`).on( 'draw.dt', function (e, settings) {
-        // after the table is drawn (on init, sort, search, etc) we need to apply the table accessibility fixes again
-        applyAccessibilityOverrides(settings);
-    });
-});
