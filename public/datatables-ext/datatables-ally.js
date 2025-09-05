@@ -120,12 +120,3 @@ $(document).on('preInit.dt', function(e, settings) {
         applyAccessibilityOverrides(settings);
     });
 });
-
-/**
- * Add a listener for datatables init
- **/
-//$(document).on('init.dt', function(e, settings) {
-//    let options = settings.oInit.lmsAlly;
-//    applyAccessibilityOverrides(options);
-//    alert("init fired");
-//});
