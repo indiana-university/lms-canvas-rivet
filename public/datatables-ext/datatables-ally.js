@@ -57,7 +57,7 @@ function fixTableHeaders(datatablesSettings) {
 function sortingNotify(sortHeader) {
     let sortBy = sortHeader.text().trim();
     let currentSort = sortHeader.attr("aria-sort");
-    let direction = currentSort != null && currentSort == 'ascending' ? "descending" : "ascending";
+    let direction = currentSort === 'ascending' ? "descending" : "ascending";
     $("#sortingAnnc").text("Sorting by " + sortBy + " " + direction);
 }
 
@@ -108,3 +108,14 @@ $(document).on("keypress", ":input.prevent-submit:checkbox", function(event) {
   return event.key != 'Enter';
 });
 
+
+/**
+ * Add a listener for datatables preInit
+ **/
+$(document).on('preInit.dt', function(e, settings) {
+    let tableId = settings.sTableId;
+    $(`#${tableId}`).on( 'draw.dt', function (e, settings) {
+        // after the table is drawn (on init, sort, search, etc) we need to apply the table accessibility fixes again
+        applyAccessibilityOverrides(settings);
+    });
+});
