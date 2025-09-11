@@ -16,20 +16,23 @@ function fixTableHeaders(datatablesSettings) {
             header.removeAttr("aria-label tabindex");
 
             // DT uses aria-label for its extra description on the sort headers. However, this means it is read on every
-            // cell in the table. The label should be the visual table header and the description should be the sorting instructions
-
-            let sortBy = header.text().trim();
-            let currentSort = header.attr("aria-sort");
-            let direction = currentSort != null && currentSort == 'ascending' ? "descending" : "ascending";
-
-            let description=`Activate to sort by ${sortBy} ${direction}`;
+            // cell in the table. The label should be the visual table header
 
             // We are replacing the wonky th that currently uses tabindex and role=button with an actual button. Remove the tabindex and role
             let headerSpan = $(header.find("span.dt-column-title")[0]);
             headerSpan.removeAttr("role");
 
+            // also remove the tabindex on the sorting arrows
+            $(header.find("span.dt-column-order")[0]).removeAttr("tabindex role aria-label");
+
+            // Add SR text to indicate current sort order. Currently, only JAWS reads the aria-sort attribute, NVDA and VoiceOver do not.
             let sortButton = headerSpan.find("button")[0];
-            $(sortButton).attr("aria-description", description);
+            let currentSort = header.attr("aria-sort");
+            if (currentSort) {
+                $(sortButton).attr("aria-description", `Sorted ${currentSort}`);
+            } else {
+                $(sortButton).removeAttr("aria-description");
+            }
 
             // DT uses an event handler on the th instead of a button, so we have to manually handle the sorting events to trigger the SR message
             header.on( "keypress", function(event) {
@@ -54,7 +57,7 @@ function fixTableHeaders(datatablesSettings) {
 function sortingNotify(sortHeader) {
     let sortBy = sortHeader.text().trim();
     let currentSort = sortHeader.attr("aria-sort");
-    let direction = currentSort != null && currentSort == 'ascending' ? "descending" : "ascending";
+    let direction = currentSort === 'ascending' ? "descending" : "ascending";
     $("#sortingAnnc").text("Sorting by " + sortBy + " " + direction);
 }
 
@@ -77,17 +80,25 @@ function labelCheckboxes(options, tableId) {
  * Make the search box more accessible
  **/
 function addDescriptiveLabels() {
-    // Add SR search instructions
-    $('div.search-wrapper').find('input[type=search]').attr('aria-describedby','searchText');
+    // Add SR search instructions if the searchText element exists. It should be a hidden span or something similar
+    if ($('#searchText')) {
+        $('div.search-wrapper').find('input[type=search]').attr('aria-describedby','searchText');
+    }
 }
 
 /**
  * Make accessibility changes
  * options - Config options map
  **/
-function applyAccessibilityOverrides(options) {
+function applyAccessibilityOverrides(settings) {
+    let options = settings.oInit.lmsAlly;
+    let tableId = settings.sTableId;
+
     // add more descriptive labels to the form elements with implicit labels
     addDescriptiveLabels();
+    fixTableHeaders(settings);
+    // add meaningful labels to the checkboxes
+    labelCheckboxes(options, tableId);
 }
 
 // In FF, pressing enter on a checkbox will submit the form. We need to prevent the enter key
@@ -97,24 +108,14 @@ $(document).on("keypress", ":input.prevent-submit:checkbox", function(event) {
   return event.key != 'Enter';
 });
 
+
 /**
  * Add a listener for datatables preInit
  **/
 $(document).on('preInit.dt', function(e, settings) {
-    let options = settings.oInit.lmsAlly;
     let tableId = settings.sTableId;
     $(`#${tableId}`).on( 'draw.dt', function (e, settings) {
-        // after the table is drawn (on init, sort, search, etc) we need to apply the table header accessibility fixes again
-        fixTableHeaders(settings);
-        // add meaningful labels to the checkboxes
-        labelCheckboxes(options, tableId);
+        // after the table is drawn (on init, sort, search, etc) we need to apply the table accessibility fixes again
+        applyAccessibilityOverrides(settings);
     });
-});
-
-/**
- * Add a listener for datatables init
- **/
-$(document).on('init.dt', function(e, settings) {
-    let options = settings.oInit.lmsAlly;
-    applyAccessibilityOverrides(options);
 });
