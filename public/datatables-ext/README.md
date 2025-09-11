@@ -109,3 +109,14 @@ $('#appTable').DataTable({
 ```
 
 The value of `checkLabelTargetSelector` represents the css selector that holds the desired label details.
+
+Also, make sure the table caption includes verbiage indicating that the columns are sortable. 
+```
+<caption class="rvt-sr-only">All global announcements, use column header buttons to sort</caption>
+```
+
+Add the SR text for the Search box and the span for announcing sorting changes:
+```
+<span id="searchText" hidden>Search for announcements within the table</span>
+<span id="sortingAnnc" class="rvt-sr-only" aria-live="polite"></span>
+```
