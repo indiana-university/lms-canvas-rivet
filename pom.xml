@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.5</version>
+        <version>3.5.6</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
@@ -12,7 +12,7 @@
     <artifactId>lms-canvas-rivet</artifactId>
     <packaging>jar</packaging>
     <name>lms-canvas-rivet</name>
-    <version>6.2.9.0_2-SNAPSHOT</version>
+    <version>6.2.9.1_1-SNAPSHOT</version>
     <description>A webjars style bundle that contains rivet and rivet-related libraries that can be used in other projects</description>
     <url>https://github.com/indiana-university/lms-canvas-rivet</url>
     <inceptionYear>2015</inceptionYear>
@@ -52,17 +52,16 @@
     </scm>
 
     <properties>
-        <frontend-maven-plugin.version>1.15.1</frontend-maven-plugin.version>
+        <frontend-maven-plugin.version>1.15.4</frontend-maven-plugin.version>
         <java.version>21</java.version>
         <jdk.source>21</jdk.source>
         <jdk.target>21</jdk.target>
-        <nodejs.version>v22.15.0</nodejs.version>
-        <npm.version>10.9.2</npm.version>
-        <plugins.central-publishing.version>0.7.0</plugins.central-publishing.version>
-        <plugins.compiler.version>3.14.0</plugins.compiler.version>
-        <plugins.gpg.version>3.2.7</plugins.gpg.version>
-        <plugins.javadoc.version>3.11.2</plugins.javadoc.version>
-        <plugins.license.version>2.5.0</plugins.license.version>
+        <nodejs.version>v22.18.0</nodejs.version>
+        <plugins.central-publishing.version>0.9.0</plugins.central-publishing.version>
+        <plugins.compiler.version>3.14.1</plugins.compiler.version>
+        <plugins.gpg.version>3.2.8</plugins.gpg.version>
+        <plugins.javadoc.version>3.12.0</plugins.javadoc.version>
+        <plugins.license.version>2.7.0</plugins.license.version>
         <plugins.release.version>3.1.1</plugins.release.version>
         <plugins.source.version>3.3.1</plugins.source.version>
     </properties>
@@ -89,7 +88,6 @@
                 <version>${frontend-maven-plugin.version}</version>
                 <configuration>
                     <nodeVersion>${nodejs.version}</nodeVersion>
-                    <npmVersion>${npm.version}</npmVersion>
                     <installDirectory>${project.build.directory}/js</installDirectory>
                 </configuration>
                 <executions>
