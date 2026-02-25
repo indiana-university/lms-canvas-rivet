@@ -3,17 +3,22 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^13.0.1",
-    "webpack": "^5.102.0",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "webpack": "^5.105.2",
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
     "rivet-clearable-input": "maurercw/rivet-clearable-input#v0.5.0",
-    "rivet-icons": "3.0.1",
     "rivet-core": "2.9.1",
+    "rivet-icons": "3.0.1",
     "rivet-stickers": "0.3.1"
   }
 }
