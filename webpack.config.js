@@ -25,7 +25,13 @@ module.exports = {
         { from: paths.node + '/rivet-clearable-input/dist/js/rivet-clearable-input.min.js', to: paths.dest + '/rivet-clearable-input' },
         { from: paths.node + '/rivet-clearable-input/dist/css/rivet-clearable-input.min.css', to: paths.dest + '/rivet-clearable-input' },
         { from: './public/scrolltotop', to: paths.dest + '/scrolltotop' },
-        { from: './public/datatables-ext', to: paths.dest + '/datatables-ext' },
+        {
+          from: './public/datatables-ext',
+          to: paths.dest + '/datatables-ext',
+          globOptions: {
+            ignore: ['**/*.test.js']
+          }
+        },
       ]
     }),
   ],

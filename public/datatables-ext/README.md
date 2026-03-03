@@ -26,10 +26,13 @@ Global config options:
 
 Column Definition options:
 
-| Setting                   | Default Value | Description                                                    |
-|---------------------------|---------------|----------------------------------------------------------------|
-| `defaultValue` (optional) |               | Filter's initial value (single value)                          |
-| `delimiter` (optional)    |               | Delimiter used for a list of values that you want to filter on |
+| Setting                    | Default Value | Description                                                         |
+|----------------------------|---------------|---------------------------------------------------------------------|
+| `defaultValue` (optional)  |               | Filter's initial value (single value)                               |
+| `delimiter` (optional)     |               | Delimiter used for a list of values that you want to filter on      |
+| `fetchUrl` (optional)      |               | URL that will be used to remotely fetch data to populate the filter |
+| `serverSide` (optional)    | false         | Boolean flag to indicate if the filtering will happen on the server |
+| `staticOptions` (optional) |               | Manually specified options used to populate the filter              |
 
 If you don't need to set a default (preselected) value, then simply having `lmsFilters: true` is sufficient to enable a filter for the column.
 
@@ -120,3 +123,43 @@ Add the SR text for the Search box and the span for announcing sorting changes:
 <span id="searchText" hidden>Search for announcements within the table</span>
 <span id="sortingAnnc" class="rvt-sr-only" aria-live="polite"></span>
 ```
+
+### Server-side processing with filters
+If you are using server-side processing for your data, you will need to handle the filtering in your server-side code as well.
+
+To load a filter with data fetched from the server, your column definition should have something like the following 
+(replace the url with your own endpoint that will return the appropriate data for the filter options):
+```
+columnDefs: [
+    {
+        // Enabling server-side term filter
+        targets: ['.colTerm'],
+        lmsFilters: {
+            fetchUrl: '/app/controller/filter/term',
+        }
+    },
+    ...
+]
+...
+```
+
+The java controller would then have something like the following:
+
+```java
+    @GetMapping("/filter/term")
+    public ResponseEntity<List<ServerFilterOptionItem>> populateTermFilter() {
+        List<String> termCodes = courseEvaluationAuditRepository.getDistinctTermCodes();
+        List<Term> terms = termRepository.findAllByUiActiveTrueOrderByCodeDesc(termCodes);
+
+        List<ServerFilterOptionItem> items = terms.stream()
+                .sorted(Comparator.comparing(Term::getTermCode))
+                .map(t -> new ServerFilterOptionItem(t.getTermCode(), t.getShortName()))
+                .toList();
+        return ResponseEntity.ok().body(items);
+    }
+```
+
+The example above has display text that is different from the value being filtered on.  The value being filtered on is 
+the term code, but the display text in the filter dropdown is the term's short name.  If you want them to be the same, 
+you can just have a single value in the ServerFilterOptionItem constructor.  Alternatively, you can return a 
+`ResponseEntity<List<String>>` and the js will use the same value for both the filter value and display text.
