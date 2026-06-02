@@ -103,3 +103,5 @@ in the tool to make it function. The html assumes the tool will have Rivet 2 and
 
 ## Datatables Extensions
 See the [README.md](public/datatables-ext/README.md) in the source for details.
+
+When using advanced filters, you can control option ordering with `descSortOrderFilterNames` and `noSortOrderFilterNames` in the DataTables `layout.lmsFilters` config.
