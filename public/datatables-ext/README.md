@@ -21,7 +21,8 @@ Global config options:
 | Setting                               | Default Value | Description                                                                                                                                                                                                                                                                                                                                  |
 |---------------------------------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `containerClass` (optional)           |               | CSS class(es) to be added to the wrapper around all filter buttons                                                                                                                                                                                                                                                                           |
-| `descSortOrderFilterNames` (optional) | []            | This is an array of strings that define which filter dropdowns should be sorted in decending order. Filter names are the string after "filter-"  but before "-dropdown-filter" in the data-rvt-dropdown attribute of the div tag. For instance, filter-date-dropdown-filter would be a filter name of 'date' so the value should be ['date'] |
+| `descSortOrderFilterNames` (optional) | []            | Array of filter names to sort in descending order. Filter names are matched case-insensitively.                                                                                                                                                                                                                                            |
+| `noSortOrderFilterNames` (optional)   | []            | Array of filter names to leave unsorted (preserve source order). Filter names are matched case-insensitively and take precedence over `descSortOrderFilterNames`.                                                                                                                                                                          |
 | `includeClearFilters` (optional)      | `false`       | Boolean indicating of a "Clear Filters" button should be included                                                                                                                                                                                                                                                                            |
 
 Column Definition options:
@@ -79,6 +80,8 @@ $('#appTable').DataTable({
             // Configuration for the filters
             lmsFilters: {
                 containerClass: 'rvt-flex-md-up rvt-p-bottom-sm rvt-wrap',
+                descSortOrderFilterNames: ['date'],
+                noSortOrderFilterNames: ['term'],
                 includeClearFilters: true
             }
         },
