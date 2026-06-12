@@ -22,8 +22,11 @@ module.exports = {
         { from: paths.node + '/rivet-core/css', to: paths.dest + '/rivet-core' },
         { from: paths.node + '/rivet-icons/dist', to: paths.dest + '/rivet-icons' },
         { from: paths.node + '/rivet-stickers/dist', to: paths.dest + '/rivet-stickers' },
-        { from: paths.node + '/rivet-clearable-input/dist/js/rivet-clearable-input.min.js', to: paths.dest + '/rivet-clearable-input' },
-        { from: paths.node + '/rivet-clearable-input/dist/css/rivet-clearable-input.min.css', to: paths.dest + '/rivet-clearable-input' },
+        {
+          from: './public/rivet-clearable-input',
+          to: paths.dest + '/rivet-clearable-input',
+          globOptions: { ignore: ['**/package.json'] }
+        },
         { from: './public/scrolltotop', to: paths.dest + '/scrolltotop' },
         {
           from: './public/datatables-ext',
