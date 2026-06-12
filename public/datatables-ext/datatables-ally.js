@@ -81,7 +81,7 @@ function labelCheckboxes(options, tableId) {
  **/
 function addDescriptiveLabels() {
     // Add SR search instructions if the searchText element exists. It should be a hidden span or something similar
-    if ($('#searchText')) {
+    if ($('#searchText').length > 0) {
         $('div.search-wrapper').find('input[type=search]').attr('aria-describedby','searchText');
     }
 }

@@ -4,9 +4,9 @@
  * opts - Hash of custom properties passed in via the 'layout'
  **/
 DataTable.feature.register('lmsFilters', function (datatablesSettings, opts) {
-    // Initialize a container div for all the filters
+    // Initialize a container div with a loading placeholder while filters are fetched
     let container = $('<div></div>');
-    container.innerHTML = '<em>Loading filters...</em>';
+    container.html('<em>Loading filters...</em>');
 
     // We have to use an async function here because we might need to fetch data before we can build the filters
     (async () => {
@@ -14,7 +14,8 @@ DataTable.feature.register('lmsFilters', function (datatablesSettings, opts) {
         let options = Object.assign({
             includeClearFilters: false,
             containerClass: 'undefined',
-            descSortOrderFilterNames: []
+            descSortOrderFilterNames: [],
+            noSortOrderFilterNames: []
        }, opts);
 
         let tableId = datatablesSettings.sTableId;
@@ -28,8 +29,10 @@ DataTable.feature.register('lmsFilters', function (datatablesSettings, opts) {
 
         // Make sure the filter names are all lowercase for easier matching later
         options.descSortOrderFilterNames = options.descSortOrderFilterNames.map(field => field.toLowerCase());
+        options.noSortOrderFilterNames = options.noSortOrderFilterNames.map(field => field.toLowerCase());
 
-        // Loop through all the column definitions, looking for any with the filtering enabled
+        // Collect build tasks for all filter columns so they can be fetched in parallel
+        const filterTasks = [];
         for (const colDef of datatablesSettings.aoColumns) {
             if (colDef.lmsFilters && typeof colDef.lmsFilters !== "undefined") {
                 // Get the unique name and id for the filter
@@ -43,15 +46,23 @@ DataTable.feature.register('lmsFilters', function (datatablesSettings, opts) {
                 let params = Object.assign(colDef.lmsFilters,
                     { colIndex: colDef.idx, filterName: filterName, filterId: filterId, tableId: tableId, delimiter: colDef.delimiter });
 
-                let sortDropdownOrder = options.descSortOrderFilterNames.includes(filterName.toLowerCase()) ? 'desc' : 'asc';
+                let sortDropdownOrder = getSortDropdownOrder(filterName, options);
 
-                // Add the filter to the container div
-                let filter = await buildLmsFilter(datatablesSettings, params, sortDropdownOrder);
-                if (filter) {
-                    container.append(filter);
-                }
+                // Queue the build (does not await yet — all will fire in parallel below)
+                filterTasks.push(buildLmsFilter(datatablesSettings, params, sortDropdownOrder));
             }
         }
+
+        // Fetch all filter data in parallel, then render them all at once
+        const filters = await Promise.all(filterTasks);
+
+        // Replace the loading placeholder with the rendered filters
+        container.empty();
+        filters.forEach(filter => {
+            if (filter) {
+                container.append(filter);
+            }
+        });
 
         // Optionally include a button to clear all the filters
         if (options.includeClearFilters) {
@@ -101,7 +112,7 @@ function fetchData(url) {
  * Build a filter
  * datatablesSettings - Settings coming from datatables
  * options - Options used to create this instance of the filter
- * sortDropdownOrder - either 'asc' (ascending) or 'desc' (descending)
+ * sortDropdownOrder - either 'asc' (ascending), 'desc' (descending), or 'none' (no sort)
  **/
 async function buildLmsFilter(datatablesSettings, options, sortDropdownOrder) {
     let column = datatablesSettings.api.columns(options.colIndex);
@@ -135,7 +146,7 @@ async function buildLmsFilter(datatablesSettings, options, sortDropdownOrder) {
     if (sortDropdownOrder === 'desc') {
         // Special sort function so that it's case-insensitive (sort by displayText)
         filterOptions = filterOptions.sort((a,b) => b.displayText.localeCompare(a.displayText));
-    } else {
+    } else if (sortDropdownOrder === 'asc') {
         // Special sort function so that it's case-insensitive (sort by displayText)
         filterOptions = filterOptions.sort((a,b) => a.displayText.localeCompare(b.displayText));
     }
@@ -422,6 +433,27 @@ function generateItemId(item) {
 }
 
 /**
+ * Determine sorting behavior for a given filter.
+ * filterName - Display name of the filter/column
+ * options - Layout options passed to lmsFilters
+ * Returns 'none', 'desc', or 'asc'
+ */
+function getSortDropdownOrder(filterName, options) {
+    const normalizedFilterName = filterName.toLowerCase();
+
+    // noSort has highest precedence so callers can explicitly preserve data order
+    if (options.noSortOrderFilterNames.includes(normalizedFilterName)) {
+        return 'none';
+    }
+
+    if (options.descSortOrderFilterNames.includes(normalizedFilterName)) {
+        return 'desc';
+    }
+
+    return 'asc';
+}
+
+/**
  * Support Node.js/CommonJS environment (for testing)
  * This allows Jest tests to import the utility functions
  */
@@ -431,6 +463,7 @@ if (typeof module !== 'undefined' && module.exports) {
         splitDelimitedData,
         htmlDecode,
         generateItemId,
+        getSortDropdownOrder,
         fetchData,
         clearFilter,
         clearAllFilters,

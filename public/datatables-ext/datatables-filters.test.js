@@ -7,6 +7,7 @@ const {
     splitDelimitedData,
     htmlDecode,
     generateItemId,
+    getSortDropdownOrder,
     fetchData,
     clearFilter,
     clearAllFilters,
@@ -200,6 +201,35 @@ describe('generateItemId', () => {
     it('should convert spaces to underscores', () => {
         expect(generateItemId('My Item')).toBe('my_item');
         expect(generateItemId('Multiple   Spaces')).toBe('multiple___spaces');
+    });
+});
+
+describe('getSortDropdownOrder', () => {
+    it('should return none when filter is listed in noSortOrderFilterNames', () => {
+        const options = {
+            noSortOrderFilterNames: ['status'],
+            descSortOrderFilterNames: ['status']
+        };
+
+        expect(getSortDropdownOrder('Status', options)).toBe('none');
+    });
+
+    it('should return desc when filter is listed in descSortOrderFilterNames', () => {
+        const options = {
+            noSortOrderFilterNames: [],
+            descSortOrderFilterNames: ['created on']
+        };
+
+        expect(getSortDropdownOrder('Created On', options)).toBe('desc');
+    });
+
+    it('should default to asc when filter is not listed in either option', () => {
+        const options = {
+            noSortOrderFilterNames: [],
+            descSortOrderFilterNames: []
+        };
+
+        expect(getSortDropdownOrder('Course Name', options)).toBe('asc');
     });
 });
 
