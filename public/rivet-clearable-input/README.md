@@ -6,7 +6,7 @@ The Rivet clearable input add-on requires the use of the core Rivet CSS. You can
 in [the Rivet documentation](https://rivet.iu.edu/components/). Once you are using Rivet, you can download the Rivet
 clearable input source files and include them in your project.
 
-### 1. Include the CCS and JavaScript in your page
+### 1. Include the CSS and JavaScript in your page
 Note: Assuming Thymeleaf templating
 ```html
 <link rel="stylesheet" type="text/css" th:href="@{/jsrivet/rivet-clearable-input/rivet-clearable-input.css}" />
