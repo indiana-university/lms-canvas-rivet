@@ -219,6 +219,8 @@
                                         <arg>--pinentry-mode</arg>
                                         <arg>loopback</arg>
                                     </gpgArguments>
+                                    <!-- gpg.keyname should be provided by an accompanying settings.xml file -->
+                                    <keyname>${gpg.keyname}</keyname>
                                 </configuration>
                             </execution>
                         </executions>
