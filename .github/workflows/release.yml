@@ -8,8 +8,7 @@
 #    - LMS_MAVEN_SETTINGS (Base64 encoded settings.xml file)
 #    - LMS_MAVEN_SECURITY (Base64 encoded settings-security.xml file)
 #    - LMS_GPG_PASSPHRASE (GPG passphrase)
-#    - LMS_GPG_SIGNING_KEY (Base64 encoded GPG signing key to be imported)
-#    - LMS_GPG_SECRET_KEY (Base64 encoded GPG secret key to be imported)
+#    - LMS_GPG_PRIVATE_KEY (GPG private key to be imported)
 #    - LMS_GIT_CONFIG (Base64 encoded .gitconfig file)
 
 name: Maven Release
@@ -19,28 +18,13 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup git and other necessary files
-        run: |
-          mkdir ~/.gpg
-          mkdir ~/.m2
-          echo -n '${{ secrets.LMS_GIT_CONFIG }}' | base64 -d > ~/.gitconfig
-          echo -n '${{ secrets.LMS_MAVEN_SETTINGS }}' | base64 -d > ~/.m2/settings.xml
-          echo -n '${{ secrets.LMS_MAVEN_SECURITY }}' | base64 -d > ~/.m2/settings-security.xml
-          echo -n '${{ secrets.LMS_GPG_SIGNING_KEY }}' | base64 -d > ~/.gpg/lmsdev-maven-signing-key.asc
-          echo -n '${{ secrets.LMS_GPG_SECRET_KEY }}' | base64 -d > ~/.gpg/lmsdev-maven-secret-key.key
-      - uses: actions/checkout@v6
-      - name: Set up JDK
-        uses: actions/setup-java@v5
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: maven
-          overwrite-settings: false
-      - name: Import gpg keys
-        run: |
-          gpg --import --passphrase '${{ secrets.LMS_GPG_PASSPHRASE }}' --batch --yes ~/.gpg/lmsdev-maven-signing-key.asc
-          gpg --import --passphrase '${{ secrets.LMS_GPG_PASSPHRASE }}' --batch --yes ~/.gpg/lmsdev-maven-secret-key.key
-      - name: Release prepare/perform
-        run: mvn clean release:prepare release:perform -B
+    uses: indiana-university/lms-githubaction-library/.github/workflows/release.yml@v1
+    with:
+      java_version: 25
+      full_maven_release: true
+    secrets:
+      LMS_MAVEN_SETTINGS: ${{ secrets.LMS_MAVEN_SETTINGS }}
+      LMS_MAVEN_SECURITY: ${{ secrets.LMS_MAVEN_SECURITY }}
+      LMS_GPG_PASSPHRASE: ${{ secrets.LMS_GPG_PASSPHRASE }}
+      LMS_GPG_PRIVATE_KEY: ${{ secrets.LMS_GPG_PRIVATE_KEY }}
+      LMS_GIT_CONFIG: ${{ secrets.LMS_GIT_CONFIG }}

@@ -1,0 +1,51 @@
+/*!
+ * rivet-clearable-input - @version 0.5.0
+ * (c) 2024, The Trustees of Indiana University | BSD-3-Clause License
+ * https://github.com/maurercw/rivet-clearable-input
+ */
+
+.rvt-clearable-input {
+    border: 1px solid #75838f;
+    padding: 3px 28px 3px 4px;
+    border-radius: 3px;
+    transition: background 0.4s;
+}
+
+.rvt-clearable-input.has-data {
+    border-right: none;
+}
+
+.rvt-clearable-input::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+.rvt-clearable-input-group {
+    position: relative;
+    width: 100%;
+}
+
+.buttonX {
+    background-color: #ffffff;
+    border: 1px solid #75838f;
+    border-left: none;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    height: 100%;
+    right: 0;
+}
+
+.buttonX:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.125rem #328bb8;
+}
+
+.buttonX > * {
+    pointer-events: none;
+}
+
+.buttonX svg {
+    vertical-align: middle;
+}

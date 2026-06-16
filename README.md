@@ -5,7 +5,7 @@ When this library is added to a project it allows access to a bundle of rivet UI
 | Library               | Directory             | Files                                                                                                                                                          |
 |-----------------------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Datatables Extensions | datatables-ext        | <ul><li>datatables-ally.css</li><li>datatables-ally.js</li><li>datatables-filters.js</li></ul>                                                                 |
-| rivet-clearable-input | rivet-clearable-input | <ul><li>rivet-clearable-input.min.js</li><li>rivet-clearable-input.min.css</li></ul>                                                                           |
+| rivet-clearable-input | rivet-clearable-input | <ul><li>rivet-clearable-input.js</li><li>rivet-clearable-input.css</li></ul>                                                                           |
 | rivet-core            | rivet-core            | <ul><li>rivet.css</li><li>rivet.min.css</li><li>rivet.min.js</li><li>rivet-esm.js</li><li>rivet-iife.js</li><li>rivet-umd.js</li></ul>                         |
 | rivet-icons           | rivet-icons           | <ul><li>rivet-icon-element.css</li><li>rivet-icon-element.js</li><li>rivet-icons.js</li><li>rivet-icons.json</li><li>`<icon-name>`.js</li></ul>                |
 | rivet-stickers        | rivet-stickers        | <ul><li>rivet-sticker-element.css</li><li>rivet-sticker-element.js</li><li>rivet-stickers.js</li><li>rivet-stickers.json</li><li>`<sticker-name>`.js</li></ul> |
