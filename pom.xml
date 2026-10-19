@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.7</version>
+        <version>4.1.1</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
@@ -52,13 +52,13 @@
     </scm>
 
     <properties>
-        <frontend-maven-plugin.version>2.0.1</frontend-maven-plugin.version>
+        <frontend-maven-plugin.version>2.0.2</frontend-maven-plugin.version>
         <java.version>25</java.version>
         <jdk.source>25</jdk.source>
         <jdk.target>25</jdk.target>
-        <nodejs.version>v24.16.0</nodejs.version>
-        <plugins.central-publishing.version>0.11.0</plugins.central-publishing.version>
-        <plugins.compiler.version>3.15.0</plugins.compiler.version>
+        <nodejs.version>v24.22.0</nodejs.version>
+        <plugins.central-publishing.version>0.12.0</plugins.central-publishing.version>
+        <plugins.compiler.version>3.16.0</plugins.compiler.version>
         <plugins.gpg.version>3.2.8</plugins.gpg.version>
         <plugins.javadoc.version>3.12.0</plugins.javadoc.version>
         <plugins.license.version>2.7.1</plugins.license.version>
